@@ -1684,7 +1684,10 @@
     </div>
   </div>
   <script>
+    var _overlayDismissed = false;
     function dismissOverlay() {
+      if (_overlayDismissed) return;
+      _overlayDismissed = true;
       var ov = document.getElementById('music-overlay');
       ov.classList.add('opening');
       setTimeout(function(){
@@ -1695,7 +1698,7 @@
 
       // Welcome speech — Bella voice, plays after doors open
       setTimeout(function() {
-        var welcome = new Audio('welcome.m4a?v=2');
+        var welcome = new Audio('welcome.m4a?v=3');
         welcome.volume = 0.92;
         welcome.play().catch(function(){});
 
