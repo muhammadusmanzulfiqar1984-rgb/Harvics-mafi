@@ -2970,10 +2970,10 @@
   <!-- ─── Music Player UI ──────────────────────────────────────────────────── -->
 
   <!-- ─── Vercel Web Analytics ──────────────────────────────────────────────── -->
-  <script type="module">
-    import { inject } from 'https://cdn.jsdelivr.net/npm/@vercel/analytics@2/+esm';
-    inject();
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
   </script>
+  <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
   <div id="music-player" class="paused">
     <button id="music-toggle" aria-label="Play/Pause music"></button>
     <div class="wave-bars">
