@@ -15,7 +15,7 @@
       --dark:     #0d0d0d;
       --dark2:    #141414;
       --dark3:    #1c1c1c;
-      --card-bg:  rgba(13,11,8,0.85);
+      --card-bg:  rgba(13,11,8,0.72);
       --border:   rgba(200,169,110,0.55);
       --text:     #e8e0d0;
       --muted:    rgba(232,224,208,0.55);
@@ -42,21 +42,36 @@
       justify-content: space-between;
       align-items: center;
       padding: 14px 40px;
-      background: rgba(13,13,13,0.85);
+      background: rgba(13,13,13,0.88);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid rgba(200,169,110,0.2);
       animation: fadeDown .6s ease both;
     }
 
     nav .logo {
-      font-weight: 400;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    nav .logo svg { width: 30px; height: 30px; flex-shrink: 0; }
+    nav .logo-text { display: flex; flex-direction: column; gap: 1px; }
+    nav .logo-name {
+      font-size: .72rem;
+      font-weight: 500;
+      letter-spacing: 3px;
+      color: var(--gold);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    nav .logo-tag {
+      font-size: .48rem;
       letter-spacing: 2px;
-      font-size: .85rem;
-      color: var(--text);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 6px 16px;
+      color: rgba(200,169,110,0.75);
+      text-transform: uppercase;
+      white-space: nowrap;
     }
 
     nav .nav-links {
@@ -66,7 +81,7 @@
     }
 
     nav .nav-links a {
-      color: var(--muted);
+      color: var(--gold);
       text-decoration: none;
       font-size: .75rem;
       font-weight: 400;
@@ -74,7 +89,7 @@
       transition: color .3s;
     }
 
-    nav .nav-links a:hover { color: var(--text); }
+    nav .nav-links a:hover { color: var(--gold-lt); }
 
     /* ─── Section Shared ─────────────────────────────────────────────────────── */
     section {
@@ -230,22 +245,21 @@
       to   { transform: translateY(-50%) rotate(360deg); }
     }
 
+    .hero-tagline {
+      font-size: 1.1rem;
+      font-weight: 200;
+      color: var(--gold-lt);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
     .hero-cities {
-      font-size: .75rem;
+      font-size: .72rem;
       letter-spacing: 4px;
       text-transform: uppercase;
       color: var(--muted);
       margin-bottom: 20px;
-    }
-
-    .hero-tagline {
-      font-size: 1.05rem;
-      color: var(--muted);
-      border-left: 3px solid var(--gold);
-      padding-left: 18px;
-      max-width: 520px;
-      margin-top: 28px;
-      line-height: 1.8;
     }
 
     .hero-stats {
@@ -310,7 +324,7 @@
     }
 
     .about-card {
-      background: rgba(13,11,8,0.85);
+      background: rgba(13,11,8,0.72);
       border: 1px solid rgba(200,169,110,0.55);
       color: var(--gold);
       padding: 32px;
@@ -368,8 +382,85 @@
       margin-top: 16px;
     }
 
+    .network-headline {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 28px;
+      margin: 40px 0;
+    }
+    .net-stat {
+      background: rgba(13,11,8,0.72);
+      border: 1px solid rgba(200,169,110,0.55);
+      border-radius: 2px;
+      padding: 28px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      animation: pulseBronze 4s infinite alternate;
+      transition: border-color .3s;
+    }
+    .net-stat::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(200,169,110,0.55), transparent);
+      transform: scaleX(0);
+      transition: transform .4s ease;
+    }
+    .net-stat:hover::after { transform: scaleX(1); }
+    .net-stat:hover { border-color: rgba(200,169,110,.5); }
+    .net-stat .num { font-size: 2.5rem; font-weight: 100; color: var(--gold); line-height: 1; margin-bottom: 6px; }
+    .net-stat .lbl { font-size: .58rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+
+    .market-row {
+      background: rgba(13,11,8,0.72);
+      border: 1px solid rgba(200,169,110,0.55);
+      border-radius: 2px;
+      padding: 28px 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      position: relative;
+      overflow: hidden;
+      animation: pulseBronze 4s infinite alternate;
+      transition: border-color .3s;
+    }
+    .market-row::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(200,169,110,0.55), transparent);
+      transform: scaleX(0);
+      transition: transform .4s ease;
+    }
+    .market-row:hover::after { transform: scaleX(1); }
+    .market-row:hover { border-color: rgba(200,169,110,.5); }
+    .market-count { font-size: 2.8rem; font-weight: 100; color: var(--gold); line-height: 1; flex-shrink: 0; min-width: 60px; }
+    .market-info h3 { font-size: .78rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+    .market-info p  { font-size: .78rem; color: var(--muted); line-height: 1.5; }
+
+    .speed-banner {
+      margin-top: 28px;
+      padding: 28px 32px;
+      background: rgba(13,11,8,0.72);
+      border: 1px solid rgba(200,169,110,0.55);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      animation: pulseBronze 4s infinite alternate;
+    }
+    .speed-banner .text { font-size: .85rem; color: var(--text); line-height: 1.6; max-width: 500px; }
+    .speed-banner .text em { color: var(--gold); font-style: normal; font-weight: 500; }
+    .speed-banner .metric { text-align: right; flex-shrink: 0; }
+    .speed-banner .metric .big { font-size: 2.5rem; font-weight: 100; color: var(--gold); line-height: 1; }
+    .speed-banner .metric .sub { font-size: .58rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+
     .market-card {
-      background: rgba(13,11,8,0.85);
+      background: rgba(13,11,8,0.72);
       border: 1px solid rgba(200,169,110,0.55);
       color: var(--gold);
       padding: 36px 28px;
@@ -384,14 +475,79 @@
       content: '';
       position: absolute;
       bottom: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(200,169,110,0.55), transparent);
       transform: scaleX(0);
       transition: transform .4s ease;
     }
 
     .market-card:hover::after { transform: scaleX(1); }
     .market-card:hover { border-color: rgba(200,169,110,.5); }
+
+    /* ─── Certs & Protocol ───────────────────────────────────────────────────── */
+    .certs-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 28px;
+      margin-top: 40px;
+    }
+    .cert-block {
+      background: rgba(13,11,8,0.72);
+      border: 1px solid rgba(200,169,110,0.55);
+      border-radius: 2px;
+      padding: 28px 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      animation: pulseBronze 4s infinite alternate;
+      transition: border-color .3s;
+    }
+    .cert-block::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(200,169,110,0.55), transparent);
+      transform: scaleX(0);
+      transition: transform .4s ease;
+    }
+    .cert-block:hover::after { transform: scaleX(1); }
+    .cert-block:hover { border-color: rgba(200,169,110,.5); }
+    .cert-block .icon { font-size: 1.8rem; margin-bottom: 12px; display: block; }
+    .cert-block h3 { font-size: .72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+    .cert-block p  { font-size: .72rem; color: var(--muted); line-height: 1.5; }
+
+    .protocol-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 28px;
+      margin-top: 28px;
+    }
+    .protocol-step {
+      background: rgba(13,11,8,0.72);
+      border: 1px solid rgba(200,169,110,0.35);
+      border-radius: 2px;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      animation: pulseBronze 4s infinite alternate;
+      transition: border-color .3s;
+    }
+    .protocol-step::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(200,169,110,0.55), transparent);
+      transform: scaleX(0);
+      transition: transform .4s ease;
+    }
+    .protocol-step:hover::after { transform: scaleX(1); }
+    .protocol-step:hover { border-color: rgba(200,169,110,.5); }
+    .protocol-step .step-num { font-size: 1.5rem; font-weight: 100; color: var(--gold); line-height: 1; margin-bottom: 8px; }
+    .protocol-step h4 { font-size: .65rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+    .protocol-step p  { font-size: .7rem; color: var(--muted); line-height: 1.4; }
 
     .market-flag {
       font-size: 2.2rem;
@@ -407,13 +563,13 @@
 
     .products-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 22px;
       margin-top: 16px;
     }
 
     .product-card {
-      background: rgba(13,11,8,0.85);
+      background: rgba(13,11,8,0.72);
       border: 1px solid rgba(200,169,110,0.55);
       color: var(--gold);
       padding: 28px 22px;
@@ -509,28 +665,6 @@
       background: transparent;
     }
 
-    .certs-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 28px;
-      margin-top: 16px;
-    }
-
-    .cert-card {
-      background: rgba(13,11,8,0.85);
-      border: 1px solid rgba(200,169,110,0.55);
-      color: var(--gold);
-      padding: 32px 24px;
-      border-radius: 2px;
-      text-align: center;
-      transition: transform .3s, border-color .3s;
-      animation: pulseBronze 4s infinite alternate;
-    }
-
-    .cert-card:hover {
-      border-color: rgba(200,169,110,.5);
-    }
-
     .cert-card .cert-icon {
       font-size: 2rem;
       margin-bottom: 14px;
@@ -599,7 +733,7 @@
     }
 
     .phase-card {
-      background: rgba(13,11,8,0.85);
+      background: rgba(13,11,8,0.72);
       border: 1px solid rgba(200,169,110,0.55);
       color: var(--gold);
       padding: 36px 28px;
@@ -646,7 +780,7 @@
     }
 
     .next-card {
-      background: rgba(13,11,8,0.85);
+      background: rgba(13,11,8,0.72);
       border: 1px solid rgba(200,169,110,0.55);
       color: var(--gold);
       padding: 32px 28px;
@@ -711,7 +845,7 @@
       flex-direction: column;
       align-items: center;
       gap: 8px;
-      background: rgba(13,11,8,0.85);
+      background: rgba(13,11,8,0.72);
       border: 1px solid rgba(200,169,110,0.55);
       padding: 24px 32px;
       border-radius: 4px;
@@ -960,8 +1094,8 @@
     /* ─── Music Player ───────────────────────────────────────────────────────── */
     #music-player {
       position: fixed;
-      bottom: 28px;
-      left: 28px;
+      bottom: 32px;
+      left: 32px;
       right: auto;
       z-index: 300;
       display: flex;
@@ -1018,40 +1152,37 @@
 
     .wave-bars { display: none; }
 
+    /* ─── Nav Clock ───────────────────────────────────────────────────────────── */
+    #nav-clock {
+      width: 38px;
+      height: 38px;
+      flex-shrink: 0;
+      animation: none;
+      background: transparent;
+    }
+    #clock-svg { width: 100%; height: 100%; }
+
     /* ─── Language Toggle ────────────────────────────────────────────────────── */
     #lang-toggle {
-      position: fixed;
-      top: 18px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 10000;
       display: flex;
       align-items: center;
-      background: rgba(13,11,8,0.75);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(200,169,110,0.28);
-      border-radius: 30px;
-      padding: 4px;
-      gap: 2px;
+      gap: 0;
     }
     .lang-btn {
-      padding: 5px 16px;
-      border-radius: 24px;
+      padding: 4px 12px;
       border: none;
       background: transparent;
-      color: var(--muted);
-      font-size: .68rem;
+      color: rgba(200,169,110,0.4);
+      font-size: .65rem;
       letter-spacing: 2px;
       text-transform: uppercase;
       cursor: pointer;
-      font-family: 'Cairo', sans-serif;
-      transition: background .25s, color .25s;
+      font-family: inherit;
+      transition: color .2s;
     }
-    .lang-btn.active {
-      background: var(--gold);
-      color: #0d0d0d;
-      font-weight: 600;
-    }
+    .lang-btn + .lang-btn { border-left: 1px solid rgba(200,169,110,0.2); }
+    .lang-btn.active { color: var(--gold); }
+    .lang-btn:hover  { color: var(--gold-lt); }
 
     /* ─── Passcode Lock ──────────────────────────────────────────────────────── */
     #passcode-screen {
@@ -1274,14 +1405,14 @@
     /* ─── Chatbot ─────────────────────────────────────────────────────────────── */
     #chat-bubble {
       position: fixed;
-      bottom: 88px;
-      right: 28px;
+      bottom: 100px;
+      right: 32px;
       left: auto;
       z-index: 300;
-      width: 48px;
-      height: 48px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
-      background: rgba(13,11,8,0.85);
+      background: rgba(13,11,8,0.88);
       backdrop-filter: blur(12px);
       border: 1px solid rgba(200,169,110,0.35);
       display: flex;
@@ -1292,14 +1423,14 @@
       box-shadow: 0 4px 20px rgba(0,0,0,0.4);
     }
     #chat-bubble:hover { border-color: var(--gold); transform: scale(1.08); }
-    #chat-bubble svg { width: 22px; height: 22px; fill: var(--gold); }
+    #chat-bubble svg { width: 20px; height: 20px; fill: var(--gold); }
     #chat-bubble .cb-tooltip {
       position: absolute;
-      right: 58px;
+      right: 54px;
       left: auto;
       background: rgba(13,11,8,0.9);
       color: var(--gold);
-      font-size: .65rem;
+      font-size: .62rem;
       letter-spacing: 1px;
       padding: 5px 12px;
       border-radius: 20px;
@@ -1313,8 +1444,8 @@
 
     #chat-window {
       position: fixed;
-      bottom: 148px;
-      right: 28px;
+      bottom: 156px;
+      right: 32px;
       left: auto;
       z-index: 300;
       width: 320px;
@@ -1373,13 +1504,13 @@
     /* ─── WhatsApp Button ────────────────────────────────────────────────────── */
     #wa-btn {
       position: fixed;
-      bottom: 28px;
-      right: 28px;
+      bottom: 32px;
+      right: 32px;
       z-index: 300;
-      width: 48px;
-      height: 48px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
-      background: rgba(13,11,8,0.82);
+      background: rgba(13,11,8,0.88);
       backdrop-filter: blur(12px);
       border: 1px solid rgba(200,169,110,0.30);
       display: flex;
@@ -1389,20 +1520,14 @@
       transition: border-color .3s, transform .2s;
       box-shadow: 0 4px 20px rgba(0,0,0,0.4);
     }
-    #wa-btn:hover {
-      border-color: rgba(200,169,110,0.55);
-      transform: scale(1.08);
-    }
-    #wa-btn svg {
-      width: 22px;
-      height: 22px;
-    }
+    #wa-btn:hover { border-color: rgba(200,169,110,0.6); transform: scale(1.08); }
+    #wa-btn svg { width: 20px; height: 20px; }
     #wa-btn .wa-tooltip {
       position: absolute;
-      right: 58px;
+      right: 54px;
       background: rgba(13,11,8,0.9);
       color: var(--gold);
-      font-size: .65rem;
+      font-size: .62rem;
       letter-spacing: 1px;
       padding: 5px 12px;
       border-radius: 20px;
@@ -1413,15 +1538,65 @@
       transition: opacity .25s;
     }
     #wa-btn:hover .wa-tooltip { opacity: 1; }
+
+    /* ─── Formula Section ────────────────────────────────────────────────────── */
+    .formula-eq {
+      font-size: clamp(3rem, 10vw, 7rem);
+      font-weight: 100;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+      text-align: center;
+      margin: 20px 0;
+    }
+    .formula-tagline {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 48px;
+      font-size: .9rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .formula-grid {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      gap: 0;
+      align-items: stretch;
+      margin-bottom: 40px;
+    }
+    .formula-block {
+      background: rgba(13,11,8,0.72);
+      border: 1px solid rgba(200,169,110,0.55);
+      border-radius: 2px;
+      padding: 36px 28px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      animation: pulseBronze 4s infinite alternate;
+      transition: border-color .3s;
+    }
+    .formula-block::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(200,169,110,0.55), transparent);
+      transform: scaleX(0);
+      transition: transform .4s ease;
+    }
+    .formula-block:hover::after { transform: scaleX(1); }
+    .formula-block:hover { border-color: rgba(200,169,110,.5); }
+    .formula-block .letter { font-size: 3.5rem; font-weight: 100; color: var(--gold); line-height: 1; margin-bottom: 12px; }
+    .formula-block h3 { font-size: .72rem; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+    .formula-block p { font-size: .78rem; color: var(--muted); line-height: 1.6; }
+    .formula-op { font-size: 3rem; font-weight: 100; color: rgba(200,169,110,0.4); display: flex; align-items: center; padding: 0 20px; }
+    .formula-proof { font-size: .65rem; letter-spacing: 3px; text-transform: uppercase; color: rgba(200,169,110,0.5); margin-top: 20px; }
+
+    section h2 { text-shadow: 0 2px 20px rgba(0,0,0,0.8), 0 1px 4px rgba(0,0,0,0.9); }
+    section p  { text-shadow: 0 1px 8px rgba(0,0,0,0.7); }
+    .section-tag { text-shadow: 0 1px 6px rgba(0,0,0,0.8); }
   </style>
 </head>
 <body>
-
-  <!-- ─── Language Toggle ────────────────────────────────────────────────── -->
-  <div id="lang-toggle">
-    <button class="lang-btn" id="btn-ar" onclick="setLang('ar')">ع</button>
-    <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
-  </div>
 
   <!-- ─── WhatsApp Button ───────────────────────────────────────────────── -->
   <a id="wa-btn" href="https://wa.me/16473664374" target="_blank" rel="noopener" aria-label="WhatsApp">
@@ -1518,9 +1693,9 @@
       }, 900);
       setTimeout(function(){ ov.remove(); }, 1400);
 
-      // Welcome speech — real Samantha voice, plays after doors open
+      // Welcome speech — Bella voice, plays after doors open
       setTimeout(function() {
-        var welcome = new Audio('welcome.m4a');
+        var welcome = new Audio('welcome.m4a?v=2');
         welcome.volume = 0.92;
         welcome.play().catch(function(){});
 
@@ -1532,9 +1707,9 @@
           a.play().catch(function(){});
           var vol = 0;
           var fade = setInterval(function() {
-            vol = Math.min(vol + 0.02, 0.50);
+            vol = Math.min(vol + 0.02, 0.25);
             a.volume = vol;
-            if (vol >= 0.50) clearInterval(fade);
+            if (vol >= 0.25) clearInterval(fade);
           }, 100);
           var btn = document.getElementById('music-toggle');
           var pl  = document.getElementById('music-player');
@@ -1588,7 +1763,58 @@
 
   <!-- ─── Nav ──────────────────────────────────────────────────────────────── -->
   <nav>
-    <div class="logo">HARVICS</div>
+    <a class="logo" href="#hero">
+      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="32" cy="32" r="8" fill="#C3A35E" opacity="0.95"/>
+        <circle cx="32" cy="32" r="4" fill="#6B1F2B"/>
+        <path d="M32 4L32 16L28 12L32 16L36 12" stroke="#C3A35E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M50 14L42 22L44 18L42 22L46 24" stroke="#C3A35E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M60 32L48 32L52 28L48 32L52 36" stroke="#C3A35E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M50 50L42 42L46 40L42 42L44 46" stroke="#C3A35E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M32 60L32 48L28 52L32 48L36 52" stroke="#C3A35E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M14 50L22 42L18 44L22 42L20 46" stroke="#C3A35E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M4 32L16 32L12 28L16 32L12 36" stroke="#C3A35E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M14 14L22 22L20 18L22 22L18 24" stroke="#C3A35E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="32" cy="32" r="22" stroke="#C3A35E" stroke-width="1" opacity="0.3" fill="none"/>
+      </svg>
+      <div class="logo-text">
+        <span class="logo-name">Harvics Global Ventures</span>
+        <span class="logo-tag">Exploring across Hemisphere</span>
+      </div>
+    </a>
+    <!-- Analog Clock -->
+    <div id="nav-clock">
+      <svg id="clock-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <!-- Outer ring -->
+        <circle cx="50" cy="50" r="46" fill="none" stroke="#c8a96e" stroke-width="1.5"/>
+        <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(200,169,110,0.15)" stroke-width="0.5"/>
+        <!-- Hour markers -->
+        <line x1="50" y1="8" x2="50" y2="14" stroke="#c8a96e" stroke-width="2" transform="rotate(0 50 50)"/>
+        <line x1="50" y1="8" x2="50" y2="12" stroke="rgba(200,169,110,0.5)" stroke-width="1" transform="rotate(30 50 50)"/>
+        <line x1="50" y1="8" x2="50" y2="12" stroke="rgba(200,169,110,0.5)" stroke-width="1" transform="rotate(60 50 50)"/>
+        <line x1="50" y1="8" x2="50" y2="14" stroke="#c8a96e" stroke-width="2" transform="rotate(90 50 50)"/>
+        <line x1="50" y1="8" x2="50" y2="12" stroke="rgba(200,169,110,0.5)" stroke-width="1" transform="rotate(120 50 50)"/>
+        <line x1="50" y1="8" x2="50" y2="12" stroke="rgba(200,169,110,0.5)" stroke-width="1" transform="rotate(150 50 50)"/>
+        <line x1="50" y1="8" x2="50" y2="14" stroke="#c8a96e" stroke-width="2" transform="rotate(180 50 50)"/>
+        <line x1="50" y1="8" x2="50" y2="12" stroke="rgba(200,169,110,0.5)" stroke-width="1" transform="rotate(210 50 50)"/>
+        <line x1="50" y1="8" x2="50" y2="12" stroke="rgba(200,169,110,0.5)" stroke-width="1" transform="rotate(240 50 50)"/>
+        <line x1="50" y1="8" x2="50" y2="14" stroke="#c8a96e" stroke-width="2" transform="rotate(270 50 50)"/>
+        <line x1="50" y1="8" x2="50" y2="12" stroke="rgba(200,169,110,0.5)" stroke-width="1" transform="rotate(300 50 50)"/>
+        <line x1="50" y1="8" x2="50" y2="12" stroke="rgba(200,169,110,0.5)" stroke-width="1" transform="rotate(330 50 50)"/>
+        <!-- Roman numerals -->
+        <text x="50" y="20" text-anchor="middle" fill="#c8a96e" font-size="7" font-family="serif">XII</text>
+        <text x="80" y="54" text-anchor="middle" fill="#c8a96e" font-size="7" font-family="serif">III</text>
+        <text x="50" y="86" text-anchor="middle" fill="#c8a96e" font-size="7" font-family="serif">VI</text>
+        <text x="20" y="54" text-anchor="middle" fill="#c8a96e" font-size="7" font-family="serif">IX</text>
+        <!-- Hands -->
+        <line id="hour-hand"   x1="50" y1="50" x2="50" y2="24" stroke="#c8a96e" stroke-width="2.5" stroke-linecap="round"/>
+        <line id="minute-hand" x1="50" y1="50" x2="50" y2="16" stroke="#e8cc8a" stroke-width="1.5" stroke-linecap="round"/>
+        <line id="second-hand" x1="50" y1="55" x2="50" y2="14" stroke="rgba(200,169,110,0.15)" stroke-width="0.5" stroke-linecap="round"/>
+        <!-- Center dot -->
+        <circle cx="50" cy="50" r="2.5" fill="#c8a96e"/>
+        <circle cx="50" cy="50" r="1" fill="#8B4513"/>
+      </svg>
+    </div>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#markets">Markets</a></li>
@@ -1598,6 +1824,10 @@
       <li><a href="#mafi">Mafi</a></li>
       <li><a href="#cta">Contact</a></li>
     </ul>
+    <div id="lang-toggle">
+      <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" id="btn-ar" onclick="setLang('ar')">ع</button>
+    </div>
   </nav>
 
   <!-- ─── 01 HERO ───────────────────────────────────────────────────────────── -->
@@ -1623,51 +1853,55 @@
     </div>
     <br>
     <div class="reveal delay-1">
-      <h1>Harvics Global<br>Ventures</h1>
+      <h1>Harvics Global Ventures</h1>
     </div>
     <div class="reveal delay-2">
-      <p class="hero-cities">London &nbsp;·&nbsp; Milan &nbsp;·&nbsp; New York</p>
+      <p class="hero-tagline">Exploring across Hemisphere</p>
     </div>
     <div class="reveal delay-3">
-      <div class="hero-tagline">
-        بوابتك إلى Markets العالمية
-      </div>
+      <p class="hero-cities">London &nbsp;·&nbsp; Milan &nbsp;·&nbsp; New York</p>
     </div>
     <div class="hero-stats reveal delay-4">
       <div class="stat">
-        <span class="stat-num">40+</span>
-        <span class="stat-label">Countries Worldwide</span>
+        <span class="stat-num" data-target="50">0</span>
+        <span class="stat-label">Countries</span>
       </div>
       <div class="stat">
-        <span class="stat-num">15</span>
-        <span class="stat-label">Years of Operations</span>
+        <span class="stat-num" data-target="18">0</span>
+        <span class="stat-label">Years of Experience</span>
       </div>
       <div class="stat">
-        <span class="stat-num">5</span>
-        <span class="stat-label">International Certifications</span>
-      </div>
-      <div class="stat">
-        <span class="stat-num">3</span>
-        <span class="stat-label">Continental Headquarters</span>
+        <span class="stat-num" data-target="3">0</span>
+        <span class="stat-label">Continental HQs</span>
       </div>
     </div>
 
     <!-- Ticker -->
     <div class="ticker-wrap reveal delay-5">
       <div class="ticker-track">
-        <span class="ticker-item">FMCG Buying House</span>
+        <span class="ticker-item">NEURAL SUPPLY-CHAIN LOGIC</span>
         <span class="ticker-item">◆</span>
-        <span class="ticker-item">Integrated Supply Chain</span>
+        <span class="ticker-item">REAL-TIME LIQUIDITY MONITORING</span>
         <span class="ticker-item">◆</span>
-        <span class="ticker-item">Product Development</span>
+        <span class="ticker-item">AUTONOMOUS B2B INTERFACING</span>
         <span class="ticker-item">◆</span>
-        <span class="ticker-item">Quality Assurance</span>
+        <span class="ticker-item">PREDICTIVE DEMAND MODELING</span>
         <span class="ticker-item">◆</span>
-        <span class="ticker-item">Last Mile Logistics</span>
+        <span class="ticker-item">BLOCKCHAIN-VERIFIED TRACEABILITY</span>
         <span class="ticker-item">◆</span>
-        <span class="ticker-item">40+ Countries</span>
+        <span class="ticker-item">ZERO-LATENCY GLOBAL DISTRIBUTION</span>
         <span class="ticker-item">◆</span>
-        <span class="ticker-item">Principal Buyer Model</span>
+        <span class="ticker-item">NEURAL SUPPLY-CHAIN LOGIC</span>
+        <span class="ticker-item">◆</span>
+        <span class="ticker-item">REAL-TIME LIQUIDITY MONITORING</span>
+        <span class="ticker-item">◆</span>
+        <span class="ticker-item">AUTONOMOUS B2B INTERFACING</span>
+        <span class="ticker-item">◆</span>
+        <span class="ticker-item">PREDICTIVE DEMAND MODELING</span>
+        <span class="ticker-item">◆</span>
+        <span class="ticker-item">BLOCKCHAIN-VERIFIED TRACEABILITY</span>
+        <span class="ticker-item">◆</span>
+        <span class="ticker-item">ZERO-LATENCY GLOBAL DISTRIBUTION</span>
         <span class="ticker-item">◆</span>
       </div>
     </div>
@@ -1677,14 +1911,14 @@
   <section id="about">
     <div class="reveal"><span class="section-tag">About Us</span></div>
     <div class="reveal delay-1">
-      <h2>Global FMCG Buying House<br>Built on 15 Years of Real Relationships</h2>
+      <h2>Global FMCG Buying House<br>Built on 18 Years of Real Relationships</h2>
     </div>
     <div class="reveal delay-2">
       <div class="divider"></div>
     </div>
     <div class="reveal delay-2">
       <p style="max-width:680px;">
-        Harvics Global Ventures is a full-service FMCG buying house providing end-to-end supply chain solutions — from sourcing and product development to quality assurance and logistics — serving retailers and brands across <strong style="color:var(--gold)">40+ countries</strong>.
+        Harvics Global Ventures is a full-service FMCG buying house providing end-to-end supply chain solutions — from sourcing and product development to quality assurance and logistics — serving retailers and brands across <strong style="color:var(--gold)">50+ countries</strong>.
       </p>
     </div>
 
@@ -1696,8 +1930,8 @@
       </div>
       <div class="about-card reveal-right delay-2">
         <span class="num">02</span>
-        <h3>📅&nbsp; 15 Years of Operations</h3>
-        <p>A decade and a half of building genuine relationships with suppliers and buyers — not databases, but trusted networks.</p>
+        <h3>📅&nbsp; 18 Years of Operations</h3>
+        <p>Eighteen years of building genuine relationships with suppliers and buyers — not databases, but trusted networks across 50+ countries.</p>
       </div>
       <div class="about-card reveal-left delay-3">
         <span class="num">03</span>
@@ -1722,33 +1956,67 @@
 
   <!-- ─── 03 MARKET ACCESS ──────────────────────────────────────────────────── -->
   <section id="markets">
-    <div class="reveal"><span class="section-tag">Market Access</span></div>
+    <div class="reveal"><span class="section-tag">Global Network</span></div>
     <div class="reveal delay-1">
-      <h2>Immediate Access to Markets<br>Across Three Continents</h2>
+      <h2>Our Network Is Your Market Access</h2>
     </div>
     <div class="reveal delay-2"><div class="divider"></div></div>
     <div class="reveal delay-2">
-      <p style="max-width:620px;">
-        Mafi produces world-class agro-food products. Harvics puts them where they belong — on shelves and in factories. We act as principal buyers in most cases — clean transactions, no brokers.
-      </p>
+      <p style="max-width:640px;">171+ pre-qualified buyers across six major global markets — decades of relationship-building compressed into immediate access for MAFI. These relationships took years to build. MAFI inherits them from day one.</p>
     </div>
-
-    <div class="markets-grid">
-      <div class="market-card reveal delay-1">
-        <div class="market-flag">🇬🇧</div>
-        <h3>United Kingdom</h3>
-        <p>Major retail and wholesale networks serving over 65,000 retailers — including independent grocers, ethnic food chains, and national distributors.</p>
+    <div class="network-headline reveal delay-2">
+      <div class="net-stat"><div class="num">171+</div><div class="lbl">Active Contacts</div></div>
+      <div class="net-stat"><div class="num">6</div><div class="lbl">Major Markets</div></div>
+      <div class="net-stat"><div class="num">90</div><div class="lbl">Days to Access</div></div>
+      <div class="net-stat"><div class="num">65K+</div><div class="lbl">UK Retail Points</div></div>
+    </div>
+    <div class="markets-grid reveal delay-3">
+      <div class="market-row">
+        <div class="market-count">42</div>
+        <div class="market-info">
+          <h3>🇬🇧 United Kingdom</h3>
+          <p>Major wholesale networks, independent grocers, ethnic food chains, national distributors. 65,000+ retail points. Actively seeking citrus concentrates, frozen fruits, specialty ingredients — every week.</p>
+        </div>
       </div>
-      <div class="market-card reveal delay-2">
-        <div class="market-flag">🇪🇺</div>
-        <h3>Europe</h3>
-        <p>Established relationships with distributors and manufacturers in Spain, Italy, Germany, and France — direct access to retail buyers and food manufacturers.</p>
+      <div class="market-row">
+        <div class="market-count">38</div>
+        <div class="market-info">
+          <h3>🇮🇹🇪🇸 Italy &amp; Spain</h3>
+          <p>Food manufacturers, beverage producers, retail private label programs. Require tomato concentrates, fruit purées, and premium ingredients at industrial scale.</p>
+        </div>
       </div>
-      <div class="market-card reveal delay-3">
-        <div class="market-flag">🌍</div>
-        <h3>GCC & Middle East</h3>
-        <p>Active retail and food ingredient channels in the UAE, Saudi Arabia, and beyond — with deep expertise in Halal procurement.</p>
+      <div class="market-row">
+        <div class="market-count">31</div>
+        <div class="market-info">
+          <h3>🇩🇪🇫🇷 Germany &amp; France</h3>
+          <p>Industrial buyers, retail chains, food service distributors. Some of Europe's most demanding quality standards — and we meet them. Industrial-scale annual supply contracts.</p>
+        </div>
       </div>
+      <div class="market-row">
+        <div class="market-count">27</div>
+        <div class="market-info">
+          <h3>🇺🇸 United States</h3>
+          <p>Northeast corridor importers, wholesalers, ingredient buyers for major beverage and food manufacturing. Volume capacity to absorb significant tonnage immediately.</p>
+        </div>
+      </div>
+      <div class="market-row">
+        <div class="market-count">19</div>
+        <div class="market-info">
+          <h3>🌙 GCC &amp; Middle East</h3>
+          <p>Halal-certified procurement channels including Bestway. Egyptian origin is an advantage here — cultural trust translates to commercial preference. Premium retail and food service.</p>
+        </div>
+      </div>
+      <div class="market-row">
+        <div class="market-count">14</div>
+        <div class="market-info">
+          <h3>🌏 Asia-Pacific</h3>
+          <p>Emerging high-growth buyers including Bajco network. Fastest-growing markets actively seeking certified agri-food ingredients from reliable, established suppliers.</p>
+        </div>
+      </div>
+    </div>
+    <div class="speed-banner reveal delay-4">
+      <div class="text">Building these relationships from scratch takes <em>18–24 months</em> of travel, trade shows, sample cycles, failed negotiations, and slow trust-building. Through Harvics, MAFI accesses all 171+ in just <em>90 days</em>.</div>
+      <div class="metric"><div class="big">$4M+</div><div class="sub">Lost per month of delay</div></div>
     </div>
   </section>
 
@@ -1765,26 +2033,30 @@
       </p>
     </div>
 
-    <div class="products-grid">
+        <div class="products-grid">
       <div class="product-card reveal delay-1">
-        <span class="product-icon">🌾</span>
-        <h3>Grains & Wheat</h3>
-        <p>Rice, wheat, corn, and manufactured grain products for retail and B2B supply chains.</p>
+        <span class="product-icon">🍊</span>
+        <h3>Citrus Concentrates</h3>
       </div>
       <div class="product-card reveal delay-2">
-        <span class="product-icon">🫙</span>
-        <h3>Oils & Fats</h3>
-        <p>Vegetable oils, sunflower oil, and blended cooking oils packaged for commercial and industrial use.</p>
+        <span class="product-icon">🍅</span>
+        <h3>Tomato Concentrates</h3>
       </div>
       <div class="product-card reveal delay-3">
-        <span class="product-icon">🍬</span>
-        <h3>Sugar & Sweeteners</h3>
-        <p>Refined white sugar, raw cane sugar, and sugar derivatives for confectionery and food production.</p>
+        <span class="product-icon">❄️</span>
+        <h3>IQF Fruits &amp; Vegetables</h3>
       </div>
       <div class="product-card reveal delay-4">
-        <span class="product-icon">🥫</span>
-        <h3>Canned & Packaged</h3>
-        <p>Canned goods, pasta, tomato products, and private label FMCG lines ready for global markets.</p>
+        <span class="product-icon">🌿</span>
+        <h3>Freeze-Dried Products</h3>
+      </div>
+      <div class="product-card reveal delay-4">
+        <span class="product-icon">🫐</span>
+        <h3>Multi-Fruit Purées</h3>
+      </div>
+      <div class="product-card reveal delay-4">
+        <span class="product-icon">🥭</span>
+        <h3>Tropical Fruit Blends</h3>
       </div>
     </div>
   </section>
@@ -1838,38 +2110,47 @@
 
   <!-- ─── 06 CERTIFICATIONS ─────────────────────────────────────────────────── -->
   <section id="certs">
-    <div class="reveal"><span class="section-tag">Standards & Compliance</span></div>
+    <div class="reveal"><span class="section-tag">Certifications &amp; Compliance</span></div>
     <div class="reveal delay-1">
-      <h2>Our Certifications &<br>Compliance Standards</h2>
+      <h2>We Hold the Keys<br>to Every Market</h2>
     </div>
     <div class="reveal delay-2"><div class="divider"></div></div>
     <div class="reveal delay-2">
-      <p style="max-width:600px;">
-        Every shipment facilitated by Harvics meets the highest international standards. Our certifications open access to regulated markets across Europe, the GCC, and beyond.
-      </p>
+      <p style="max-width:640px;">Every market has gatekeepers. Every buyer has requirements. Harvics holds the certifications that unlock doors — combined with MAFI's LEED Gold commitment, this creates premium market positioning that commands price premiums and buyer loyalty.</p>
     </div>
-
-    <div class="certs-grid">
-      <div class="cert-card reveal delay-1">
-        <span class="cert-icon">📋</span>
-        <h3>ISO 9001</h3>
-        <p>International quality management standard to ensure consistent, audit-ready operations.</p>
+    <div class="certs-grid reveal delay-2">
+      <div class="cert-block">
+        <span class="icon">📋</span>
+        <h3>ISO 9001:2015</h3>
+        <p>International quality management standard. Signals operational maturity — documented processes, consistent procedures, audit-ready operations.</p>
       </div>
-      <div class="cert-card reveal delay-2">
-        <span class="cert-icon">🛡️</span>
+      <div class="cert-block">
+        <span class="icon">🛡️</span>
         <h3>HACCP</h3>
-        <p>Hazard Analysis and Critical Control Points — mandatory for food exports to the EU and United Kingdom.</p>
+        <p>Hazard Analysis Critical Control Points — mandatory for EU and UK food imports. Without it, doors remain closed. With it, conversations begin.</p>
       </div>
-      <div class="cert-card reveal delay-3">
-        <span class="cert-icon">🏪</span>
-        <h3>BRCGS</h3>
-        <p>British Retail Consortium Global Standard — the key to major supermarket supply chains.</p>
+      <div class="cert-block">
+        <span class="icon">🏪</span>
+        <h3>BRC Global Standard</h3>
+        <p>Required by major UK supermarket chains. Our BRC certification means access to buyers representing billions in annual purchasing revenue.</p>
       </div>
-      <div class="cert-card reveal delay-4">
-        <span class="cert-icon">🌙</span>
-        <h3>Halal & Kosher</h3>
-        <p>Dual certification enabling access to Muslim and Jewish consumer markets globally.</p>
+      <div class="cert-block">
+        <span class="icon">🌙</span>
+        <h3>Halal Certified</h3>
+        <p>Essential for GCC, Middle East, and Muslim-majority markets globally. Required by Bestway and regional premium retailers. We provide it.</p>
       </div>
+      <div class="cert-block">
+        <span class="icon">✡️</span>
+        <h3>Kosher Certified</h3>
+        <p>Opens Jewish consumer markets globally. Signals premium positioning in US and European markets where Kosher is associated with quality.</p>
+      </div>
+    </div>
+    <div class="protocol-grid reveal delay-3">
+      <div class="protocol-step"><div class="step-num">01</div><h4>Pre-Production Audit</h4><p>Compliance audit of MAFI facilities and documentation before production begins</p></div>
+      <div class="protocol-step"><div class="step-num">02</div><h4>Third-Party Inspection</h4><p>Every shipment inspected before departure from Egypt — zero compromise</p></div>
+      <div class="protocol-step"><div class="step-num">03</div><h4>In-Market Verification</h4><p>Receiving inspection and quality verification at destination warehouse</p></div>
+      <div class="protocol-step"><div class="step-num">04</div><h4>Buyer Feedback Loop</h4><p>Continuous improvement signals fed back directly to MAFI production team</p></div>
+      <div class="protocol-step"><div class="step-num">05</div><h4>Full Traceability</h4><p>Complete documentation for regulatory compliance across all destination markets</p></div>
     </div>
   </section>
 
@@ -1983,22 +2264,22 @@
     </div>
 
     <div class="about-grid reveal delay-3" style="margin-bottom:60px;">
-      <div class="about-card" style="background:rgba(13,11,8,0.85); border-color:rgba(200,169,110,0.5);">
+      <div class="about-card" style="background:rgba(13,11,8,0.72); border-color:rgba(200,169,110,0.5);">
         <span class="num shimmer-number">157K</span>
         <h3>sqm Facility</h3>
         <p>State-of-the-art production complex in Sadat City — AI-driven automation, LEED Gold certification commitment.</p>
       </div>
-      <div class="about-card" style="background:rgba(13,11,8,0.85); border-color:rgba(200,169,110,0.5);">
+      <div class="about-card" style="background:rgba(13,11,8,0.72); border-color:rgba(200,169,110,0.5);">
         <span class="num shimmer-number">$300M</span>
         <h3>Total Investment</h3>
         <p>One of the largest single agri-food investments in the region — built for world-class export volumes.</p>
       </div>
-      <div class="about-card" style="background:rgba(13,11,8,0.85); border-color:rgba(200,169,110,0.5);">
+      <div class="about-card" style="background:rgba(13,11,8,0.72); border-color:rgba(200,169,110,0.5);">
         <span class="num shimmer-number">100K</span>
         <h3>Tons Annual Capacity</h3>
         <p>100% export-focused production — supplying global B2B clients from 2026 onwards at scale.</p>
       </div>
-      <div class="about-card" style="background:rgba(13,11,8,0.85); border-color:rgba(200,169,110,0.5);">
+      <div class="about-card" style="background:rgba(13,11,8,0.72); border-color:rgba(200,169,110,0.5);">
         <span class="num shimmer-number">2026</span>
         <h3>Production Launch</h3>
         <p>The window is open now. Buyer relationships take 12–18 months to build. Harvics starts today.</p>
@@ -2012,22 +2293,22 @@
     </div>
 
     <div class="products-grid reveal delay-2" style="margin-bottom:60px;">
-      <div class="product-card" style="background:rgba(13,11,8,0.85); border-color:rgba(200,169,110,0.5);">
+      <div class="product-card" style="background:rgba(13,11,8,0.72); border-color:rgba(200,169,110,0.5);">
         <div class="product-icon">🍊</div>
         <h3>Premium Citrus Concentrates</h3>
         <p>Orange, lemon, grapefruit — distributed to beverage manufacturers and food service buyers across Europe and the Americas.</p>
       </div>
-      <div class="product-card" style="background:rgba(13,11,8,0.85); border-color:rgba(200,169,110,0.5);">
+      <div class="product-card" style="background:rgba(13,11,8,0.72); border-color:rgba(200,169,110,0.5);">
         <div class="product-icon">🍅</div>
         <h3>Tomato Concentrates</h3>
         <p>Supplied to food manufacturers, sauce producers, and retail private label buyers in key target markets.</p>
       </div>
-      <div class="product-card" style="background:rgba(13,11,8,0.85); border-color:rgba(200,169,110,0.5);">
+      <div class="product-card" style="background:rgba(13,11,8,0.72); border-color:rgba(200,169,110,0.5);">
         <div class="product-icon">❄️</div>
         <h3>IQF Frozen Fruits & Vegetables</h3>
         <p>High-demand category across retail, food service, and ingredient supply chains in all target markets.</p>
       </div>
-      <div class="product-card" style="background:rgba(13,11,8,0.85); border-color:rgba(200,169,110,0.5);">
+      <div class="product-card" style="background:rgba(13,11,8,0.72); border-color:rgba(200,169,110,0.5);">
         <div class="product-icon">🌿</div>
         <h3>Freeze-Dried Products</h3>
         <p>Premium freeze-dried strawberries and specialty products for health food brands, snack manufacturers, and premium retail.</p>
@@ -2041,7 +2322,7 @@
     </div>
 
     <div style="display:grid; grid-template-columns:1fr 1fr; gap:28px; margin-bottom:60px;">
-      <div class="about-card reveal-left delay-1" style="background:rgba(13,11,8,0.85); border-color:rgba(200,169,110,0.5);">
+      <div class="about-card reveal-left delay-1" style="background:rgba(13,11,8,0.72); border-color:rgba(200,169,110,0.5);">
         <span class="num" style="font-size:2rem;">🏭</span>
         <h3>Mafi's Strengths</h3>
         <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:8px; margin-top:12px;">
@@ -2052,7 +2333,7 @@
           <li style="font-size:.85rem; color:var(--muted);">✦ &nbsp;100% export-focused production</li>
         </ul>
       </div>
-      <div class="about-card reveal-right delay-2" style="background:rgba(13,11,8,0.85); border-color:rgba(200,169,110,0.5);">
+      <div class="about-card reveal-right delay-2" style="background:rgba(13,11,8,0.72); border-color:rgba(200,169,110,0.5);">
         <span class="num" style="font-size:2rem;">🌍</span>
         <h3>Harvics' Strengths</h3>
         <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:8px; margin-top:12px;">
@@ -2072,17 +2353,17 @@
     </div>
 
     <div class="phases reveal delay-2" style="margin-bottom:60px; counter-reset:phase;">
-      <div class="phase-card" style="background:rgba(13,11,8,0.85); border-color:rgba(200,169,110,0.5);">
+      <div class="phase-card" style="background:rgba(13,11,8,0.72); border-color:rgba(200,169,110,0.5);">
         <div class="phase-num">Phase 01 — Now → Q2 2026</div>
         <h3>Market Entry</h3>
         <p>Introduce Mafi to 10–15 pre-qualified buyers in London, Milan, and New York. Establish logistics frameworks and compliance protocols. No cold outreach — warm introductions from day one.</p>
       </div>
-      <div class="phase-card" style="background:rgba(13,11,8,0.85); border-color:rgba(200,169,110,0.5);">
+      <div class="phase-card" style="background:rgba(13,11,8,0.72); border-color:rgba(200,169,110,0.5);">
         <div class="phase-num">Phase 02 — Q3 2026</div>
         <h3>Volume Scaling</h3>
         <p>Mafi production launches. Distribution channels fully operational. First shipments executed. Expand buyer network across Europe and the Americas.</p>
       </div>
-      <div class="phase-card" style="background:rgba(13,11,8,0.85); border-color:rgba(200,169,110,0.5);">
+      <div class="phase-card" style="background:rgba(13,11,8,0.72); border-color:rgba(200,169,110,0.5);">
         <div class="phase-num">Phase 03 — Q4 2026+</div>
         <h3>Strategic Growth</h3>
         <p>Scale volume across full buyer network. Joint product development from market intelligence. Expansion into Asia-Pacific. Become Mafi's exclusive global distribution partner.</p>
@@ -2124,7 +2405,39 @@
 
   </section>
 
-  <!-- ─── 10 CTA ────────────────────────────────────────────────────────────── -->
+  <!-- ─── H × M = B² FORMULA ─────────────────────────────────────────────── -->
+  <section id="formula">
+    <div class="reveal"><span class="section-tag">The Equation</span></div>
+    <div class="reveal delay-1">
+      <div class="formula-eq">H × M = B²</div>
+    </div>
+    <div class="reveal delay-2">
+      <p class="formula-tagline">This is not addition. When production excellence meets distribution mastery, results multiply exponentially — proven with anchor clients across Europe, the Americas, and GCC markets.</p>
+    </div>
+    <div class="formula-grid reveal delay-3">
+      <div class="formula-block">
+        <div class="letter">H</div>
+        <h3>Harvics</h3>
+        <p>Global Distribution Network &amp; Market Access — 171+ pre-qualified buyers, 18 years of FMCG mastery, end-to-end logistics across 50+ countries. We don't introduce buyers — <strong style="color:var(--gold)">we ARE the buyer.</strong></p>
+      </div>
+      <div class="formula-op">×</div>
+      <div class="formula-block">
+        <div class="letter">M</div>
+        <h3>MAFI</h3>
+        <p>Production Excellence &amp; Egyptian Agricultural Leadership — 100,000 tons annual capacity, world's largest freeze-drying facility, AI-driven automation, JBT &amp; GEA technology. Five thousand years of heritage elevated by 21st century innovation.</p>
+      </div>
+      <div class="formula-op">=</div>
+      <div class="formula-block">
+        <div class="letter">B²</div>
+        <h3>Business Squared</h3>
+        <p>Exponential growth through strategic combination — $50M Year 1 scaling to $200M Year 3. Every input amplifies the other. Capacity becomes revenue. Quality becomes reputation. Potential becomes performance.</p>
+      </div>
+    </div>
+    <div class="reveal delay-4" style="text-align:center">
+      <div class="formula-proof">Proof of concept: Bajco · Bestway · 169 additional active buyers</div>
+    </div>
+  </section>
+
   <section id="cta">
     <div class="reveal">
       <h2 class="cta-title">Let's Build Something Global Together</h2>
@@ -2160,8 +2473,8 @@
   </section>
 
   <!-- ─── Audio ─────────────────────────────────────────────────────────────── -->
-  <audio id="bg-audio" loop preload="none" style="display:none">
-    <!-- music disabled temporarily -->
+  <audio id="bg-audio" loop preload="auto" style="display:none">
+    <source src="music_light.mp3" type="audio/mpeg">
   </audio>
 
 <!-- ─── Music Player UI ──────────────────────────────────────────────────────── -->
@@ -2174,11 +2487,11 @@
       <span></span><span></span><span></span><span></span><span></span>
     </div>
     <div class="music-info">
-      <span class="music-title">جسر النور</span>
+      <span class="music-title">Harvics × MAFI</span>
       <span class="music-sub">Authentic Egyptian Music</span>
     </div>
     <div id="vol-wrap">
-      <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
       <input type="range" id="vol-slider" min="0" max="100" value="35">
     </div>
   </div>
@@ -2355,7 +2668,7 @@
     const iconPlay = `<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>`;
     const iconPause= `<svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
 
-    audio.volume = 0.55;
+    audio.volume = 0.25;
     if (volSlider) volSlider.value = 55;
 
     const muteBtn = document.getElementById('music-mute');
@@ -2552,16 +2865,16 @@
         nav: ['About', 'Markets', 'Products', 'Certs', 'Partnership', 'Mafi', 'Contact'],
         heroTitle: 'Harvics Global<br>Ventures',
         heroCities: 'London &nbsp;·&nbsp; Milan &nbsp;·&nbsp; New York',
-        heroTagline: 'Your Gateway to Global Markets',
-        statLabels: ['Countries Served','Years of Market Operations','Certifications','Continental HQs'],
-        ticker: ['FMCG Buying House','End-to-End Supply Chain','Product Development','Quality Assurance','Last-Mile Logistics','40+ Countries','Principal Buyer Model'],
+        heroTagline: 'Exploring across Hemisphere',
+        statLabels: ['Countries','Years of Experience','Continental HQs'],
+        ticker: ['NEURAL SUPPLY-CHAIN LOGIC','REAL-TIME LIQUIDITY MONITORING','AUTONOMOUS B2B INTERFACING','PREDICTIVE DEMAND MODELING','BLOCKCHAIN-VERIFIED TRACEABILITY','ZERO-LATENCY GLOBAL DISTRIBUTION'],
       },
       ar: {
         nav: ['من نحن','الأسواق','المنتجات','الشهادات','الشراكة','مافي','تواصل'],
         heroTitle: 'هارفيكس جلوبال<br>فنتشرز',
         heroCities: 'لندن &nbsp;·&nbsp; ميلانو &nbsp;·&nbsp; نيويورك',
-        heroTagline: 'بوابتك إلى الأسواق العالمية',
-        statLabels: ['دولة حول العالم','سنة من العمليات','شهادات دولية','مقرات قارية'],
+        heroTagline: 'استكشاف عبر نصف الكرة',
+        statLabels: ['دولة','سنة خبرة','مقرات قارية'],
         ticker: ['بيت شراء FMCG','سلسلة توريد متكاملة','تطوير المنتجات','ضمان الجودة','لوجستيات الميل الأخير','+40 دولة','نموذج المشتري الرئيسي'],
       }
     };
@@ -2609,6 +2922,45 @@
 
     // Init as English (buttons show EN active)
     setLang('en');
+
+    // Live analog clock
+    function updateClock() {
+      var now = new Date();
+      var s = now.getSeconds();
+      var m = now.getMinutes();
+      var h = now.getHours() % 12;
+      var sDeg = s * 6;
+      var mDeg = m * 6 + s * 0.1;
+      var hDeg = h * 30 + m * 0.5;
+      var sh = document.getElementById('second-hand');
+      var mh = document.getElementById('minute-hand');
+      var hh = document.getElementById('hour-hand');
+      if (sh) sh.setAttribute('transform', 'rotate(' + sDeg + ' 50 50)');
+      if (mh) mh.setAttribute('transform', 'rotate(' + mDeg + ' 50 50)');
+      if (hh) hh.setAttribute('transform', 'rotate(' + hDeg + ' 50 50)');
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    // Animated number counters
+    const statNums = document.querySelectorAll('.stat-num[data-target]');
+    const countObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const target = parseInt(el.dataset.target);
+        const suffix = el.dataset.suffix || '+';
+        let current = 0;
+        const step = Math.ceil(target / 40);
+        const timer = setInterval(() => {
+          current = Math.min(current + step, target);
+          el.textContent = current + suffix;
+          if (current >= target) clearInterval(timer);
+        }, 35);
+        countObserver.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+    statNums.forEach(el => countObserver.observe(el));
   </script>
 
   <!-- ─── Music Player UI ──────────────────────────────────────────────────── -->
@@ -2618,7 +2970,7 @@
       <span></span><span></span><span></span><span></span><span></span>
     </div>
     <div class="music-info">
-      <span class="music-title">جسر النور</span>
+      <span class="music-title">Harvics × MAFI</span>
       <span class="music-sub">Authentic Egyptian Music</span>
     </div>
     <div id="vol-wrap">
