@@ -17,6 +17,34 @@
       --border:  rgba(200,169,110,0.25);
     }
     html { scroll-behavior: smooth; font-size: 16px; }
+
+    /* ─── CINEMATIC FIXED BACKDROP ──────────────────────────────────────────── */
+    #cinema-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
+    }
+    #cinema-bg .bg-layer {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0;
+      transition: opacity 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    #cinema-bg .bg-layer.active { opacity: 1; }
+    #cinema-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 80% at 50% 50%, transparent 30%, rgba(0,0,0,0.55) 100%),
+        linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.10) 40%, rgba(0,0,0,0.10) 60%, rgba(0,0,0,0.55) 100%);
+      pointer-events: none;
+    }
+
     body {
       background: var(--dark);
       color: var(--text);
@@ -31,7 +59,7 @@
       position: fixed;
       inset: 0;
       z-index: 99999;
-      background: radial-gradient(ellipse at center, #1a1208 0%, #060402 80%);
+      background: radial-gradient(ellipse at center, rgba(26,18,8,0.72) 0%, rgba(6,4,2,0.78) 80%);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -799,6 +827,20 @@
 </head>
 <body>
 
+<!-- ── CINEMATIC BACKGROUND ──────────────────────────────────────────────── -->
+<div id="cinema-bg">
+  <div class="bg-layer active" style="background-image:url('Card-1.png')"></div>
+  <div class="bg-layer" style="background-image:url('card-2.png')"></div>
+  <div class="bg-layer" style="background-image:url('card-3.png')"></div>
+  <div class="bg-layer" style="background-image:url('card-4.png')"></div>
+  <div class="bg-layer" style="background-image:url('card-5.png')"></div>
+  <div class="bg-layer" style="background-image:url('card-6.png')"></div>
+  <div class="bg-layer" style="background-image:url('card-7.png')"></div>
+  <div class="bg-layer" style="background-image:url('Card-8png.png')"></div>
+  <div class="bg-layer" style="background-image:url('card-9.png')"></div>
+  <div class="bg-layer" style="background-image:url('Card-10.png')"></div>
+</div>
+
 <!-- ── LOGIN ──────────────────────────────────────────────────────────────── -->
 <div id="login-screen">
   <div class="login-logo">
@@ -1490,6 +1532,32 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
   }
+
+  /* ── Cinematic background crossfade ─────────────────────────────────────── */
+  const bgLayers = document.querySelectorAll('#cinema-bg .bg-layer');
+  const sections = document.querySelectorAll('section');
+  let activeBg = 0;
+
+  function updateCinema() {
+    const winH = window.innerHeight;
+    let closest = 0;
+    let closestDist = Infinity;
+    sections.forEach(function(sec, i) {
+      const rect = sec.getBoundingClientRect();
+      const mid  = rect.top + rect.height / 2;
+      const dist = Math.abs(mid - winH / 2);
+      if (dist < closestDist) { closestDist = dist; closest = i; }
+    });
+    const target = Math.min(closest, bgLayers.length - 1);
+    if (target !== activeBg) {
+      bgLayers[activeBg].classList.remove('active');
+      bgLayers[target].classList.add('active');
+      activeBg = target;
+    }
+  }
+
+  window.addEventListener('scroll', updateCinema, { passive: true });
+  updateCinema();
 </script>
 
   <!-- ─── Vercel Web Analytics ──────────────────────────────────────────────── -->
