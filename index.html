@@ -1697,28 +1697,15 @@
       }, 900);
       setTimeout(function(){ ov.remove(); }, 1400);
 
-      // Welcome speech — Bella voice, plays after doors open
+      // Welcome speech — ElevenLabs Brian voice
       setTimeout(function() {
-        var welcome = new Audio('welcome.m4a?v=3');
+        var welcome = new Audio('mafi_welcome_arabic.mp3');
         welcome.volume = 0.92;
         welcome.play().catch(function(){});
 
-        // Music starts ONLY after speech finishes — soft fade in
+        // Music does NOT auto-start — user can manually toggle it
         welcome.onended = function() {
-          var a = document.getElementById('bg-audio');
-          if (!a) return;
-          a.volume = 0;
-          a.play().catch(function(){});
-          var vol = 0;
-          var fade = setInterval(function() {
-            vol = Math.min(vol + 0.02, 0.25);
-            a.volume = vol;
-            if (vol >= 0.25) clearInterval(fade);
-          }, 100);
-          var btn = document.getElementById('music-toggle');
-          var pl  = document.getElementById('music-player');
-          if (btn) btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
-          if (pl)  pl.classList.remove('paused');
+          // Music available via toggle button, but not auto-playing
         };
       }, 1200);
     }
@@ -1828,9 +1815,14 @@
       <li><a href="#mafi">Mafi</a></li>
       <li><a href="#cta">Contact</a></li>
     </ul>
-    <div id="lang-toggle">
-      <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
-      <button class="lang-btn" id="btn-ar" onclick="setLang('ar')">ع</button>
+    <div style="display:flex;align-items:center;gap:14px;">
+      <div id="lang-toggle">
+        <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" id="btn-ar" onclick="setLang('ar')">ع</button>
+      </div>
+      <button id="nav-login-btn" onclick="if(typeof pauseAudio==='function')pauseAudio();else{var a=document.getElementById('bg-audio');if(a)a.pause();}document.getElementById('login-modal').style.display='flex';var v=document.getElementById('login-bg-video');if(v){v.load();v.play().catch(function(){});}" style="background:transparent;border:1px solid var(--gold);color:var(--gold);padding:7px 22px;font-size:.75rem;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;font-family:inherit;transition:background .3s,color .3s;"
+        onmouseenter="this.style.background='var(--gold)';this.style.color='var(--dark)'"
+        onmouseleave="this.style.background='transparent';this.style.color='var(--gold)'">Login</button>
     </div>
   </nav>
 
@@ -1865,6 +1857,13 @@
     <div class="reveal delay-3">
       <p class="hero-cities">London &nbsp;·&nbsp; Milan &nbsp;·&nbsp; New York</p>
     </div>
+    <div class="reveal delay-3" style="margin-top:36px;">
+      <button onclick="if(typeof pauseAudio==='function')pauseAudio();else{var a=document.getElementById('bg-audio');if(a)a.pause();}document.getElementById('login-modal').style.display='flex';var v=document.getElementById('login-bg-video');if(v){v.load();v.play().catch(function(){});}" style="display:inline-block;padding:14px 42px;border:1px solid var(--gold);background:linear-gradient(135deg,rgba(200,169,110,0.15),rgba(205,127,50,0.1));color:var(--gold);font-size:.85rem;font-weight:400;letter-spacing:2.5px;text-transform:uppercase;text-decoration:none;border-radius:2px;cursor:pointer;transition:all .4s ease;font-family:inherit;backdrop-filter:blur(6px);position:relative;overflow:hidden;"
+        onmouseenter="if(typeof pauseAudio==='function')pauseAudio();else{var a=document.getElementById('bg-audio');if(a)a.pause();}this.style.background='var(--gold)';this.style.color='var(--dark)';this.style.boxShadow='0 0 30px rgba(200,169,110,0.3)'"
+        ontouchstart="if(typeof pauseAudio==='function')pauseAudio();else{var a=document.getElementById('bg-audio');if(a)a.pause();}"
+        onmouseleave="this.style.background='linear-gradient(135deg,rgba(200,169,110,0.15),rgba(205,127,50,0.1))';this.style.color='var(--gold)';this.style.boxShadow='none'">Let's Talk Commercial</button>
+    </div>
+
     <div class="hero-stats reveal delay-4">
       <div class="stat">
         <span class="stat-num" data-target="50">0</span>
@@ -1910,6 +1909,62 @@
       </div>
     </div>
   </section>
+
+  <!-- ─── LOGIN MODAL ────────────────────────────────────────────────────── -->
+  <div id="login-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.4);justify-content:center;align-items:center;" onclick="if(event.target===this)this.style.display='none'">
+    <!-- Background Video -->
+    <video id="login-bg-video" muted loop playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.6;z-index:0;">
+      <source src="login-bg.mp4" type="video/mp4">
+    </video>
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 70% at 50% 50%,transparent 20%,rgba(0,0,0,0.5) 100%);z-index:1;pointer-events:none;"></div>
+    <div style="background:rgba(20,20,20,0.88);border:1px solid var(--border);border-radius:4px;padding:48px 40px;width:380px;max-width:90vw;position:relative;z-index:2;backdrop-filter:blur(10px);">
+      <button onclick="document.getElementById('login-modal').style.display='none'" style="position:absolute;top:14px;right:18px;background:none;border:none;color:var(--gold);font-size:1.4rem;cursor:pointer;">&times;</button>
+      <h3 style="text-align:center;color:var(--gold);font-size:1.3rem;margin-bottom:8px;font-weight:300;letter-spacing:1px;">Commercial Framework</h3>
+      <p style="text-align:center;color:var(--muted);font-size:.8rem;margin-bottom:28px;">This document is confidential. Please authenticate to proceed.</p>
+      <div id="login-error" style="display:none;background:rgba(180,40,40,0.15);border:1px solid rgba(180,40,40,0.4);color:#e88;padding:10px 14px;margin-bottom:16px;font-size:.8rem;border-radius:2px;text-align:center;">Invalid credentials. Please try again.</div>
+      <form onsubmit="event.preventDefault();handleLogin();">
+        <label style="display:block;font-size:.72rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;">Email</label>
+        <input id="login-email" type="email" placeholder="you@company.com" style="width:100%;padding:10px 14px;margin-bottom:18px;background:var(--dark3);border:1px solid rgba(200,169,110,0.3);border-radius:2px;color:var(--text);font-size:.9rem;font-family:inherit;outline:none;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='rgba(200,169,110,0.3)'">
+        <label style="display:block;font-size:.72rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;">Password</label>
+        <input id="login-pass" type="password" placeholder="••••••••" style="width:100%;padding:10px 14px;margin-bottom:24px;background:var(--dark3);border:1px solid rgba(200,169,110,0.3);border-radius:2px;color:var(--text);font-size:.9rem;font-family:inherit;outline:none;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='rgba(200,169,110,0.3)'">
+        <button type="submit" style="width:100%;padding:12px;background:var(--gold);color:var(--dark);border:none;font-size:.8rem;font-weight:500;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border-radius:2px;font-family:inherit;transition:background .3s;" onmouseenter="this.style.background='var(--gold-lt)'" onmouseleave="this.style.background='var(--gold)'">Access Framework</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ─── PROTECTED FRAMEWORK OVERLAY ────────────────────────────────────── -->
+  <div id="framework-overlay" style="display:none;position:fixed;inset:0;z-index:9998;background:var(--dark);">
+    <div style="position:fixed;top:0;left:0;right:0;z-index:10000;background:rgba(13,13,13,0.95);backdrop-filter:blur(14px);border-bottom:1px solid rgba(200,169,110,0.25);padding:12px 28px;display:flex;justify-content:space-between;align-items:center;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="font-size:.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:500;">Confidential</span>
+        <span style="color:rgba(200,169,110,0.3);">·</span>
+        <span style="font-size:.68rem;letter-spacing:1px;color:var(--muted);">Harvics × MAFI Commercial Engagement Framework</span>
+      </div>
+      <button onclick="document.getElementById('framework-overlay').style.display='none'" style="background:transparent;border:1px solid rgba(200,169,110,0.4);color:var(--gold);padding:6px 18px;font-size:.68rem;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;font-family:inherit;transition:all .3s;" onmouseenter="this.style.background='var(--gold)';this.style.color='var(--dark)'" onmouseleave="this.style.background='transparent';this.style.color='var(--gold)'">✕ Close</button>
+    </div>
+    <iframe id="framework-iframe" src="" style="width:100%;height:100%;border:none;padding-top:48px;" allowfullscreen></iframe>
+  </div>
+
+  <script>
+    function handleLogin(){
+      var email=document.getElementById('login-email').value.trim();
+      var pass=document.getElementById('login-pass').value;
+      // Credentials: mafi@harvics.com / Harvics2026
+      if(email==='mafi@harvics.com' && pass==='Harvics2026'){
+        document.getElementById('login-error').style.display='none';
+        document.getElementById('login-modal').style.display='none';
+        // Stop background music permanently
+        if(typeof pauseAudio==='function'){pauseAudio();}else{var bgAud=document.getElementById('bg-audio');if(bgAud){bgAud.pause();}}
+        window._musicStoppedByLogin=true;
+        document.getElementById('framework-iframe').src='Final%20mafi.html';
+        document.getElementById('framework-overlay').style.display='block';
+        document.getElementById('login-email').value='';
+        document.getElementById('login-pass').value='';
+      } else {
+        document.getElementById('login-error').style.display='block';
+      }
+    }
+  </script>
 
   <!-- ─── 02 ABOUT ──────────────────────────────────────────────────────────── -->
   <section id="about">
@@ -2691,6 +2746,7 @@
     }
 
     function playAudio() {
+      if(window._musicStoppedByLogin) return;
       audio.play().then(() => {
         toggleBtn.innerHTML = iconPause;
         player.classList.remove('paused');
@@ -2702,6 +2758,7 @@
       toggleBtn.innerHTML = iconPlay;
       player.classList.add('paused');
     }
+    window.pauseAudio = pauseAudio;
 
     toggleBtn.addEventListener('click', () => {
       if (audio.paused) { playAudio(); } else { pauseAudio(); }
