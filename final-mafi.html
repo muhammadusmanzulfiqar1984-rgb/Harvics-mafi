@@ -1202,6 +1202,19 @@ function toggleMafiMusic(){
 }
 </script>
 <script>
+/* ── Scroll Reveal for .sr elements ── */
+(function(){
+  var els=document.querySelectorAll('.sr,.sr-left,.sr-right,.sr-scale');
+  if(!els.length)return;
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}
+    });
+  },{threshold:0.12});
+  els.forEach(function(el){io.observe(el);});
+})();
+</script>
+<script>
 /* ── Analog Clock ── */
 (function(){
   function tick(){
