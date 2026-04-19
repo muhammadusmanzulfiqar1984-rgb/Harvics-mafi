@@ -1210,8 +1210,26 @@ function toggleMafiMusic(){
     entries.forEach(function(e){
       if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}
     });
-  },{threshold:0.12});
+  },{threshold:0.05, rootMargin:'0px 0px 80px 0px'});
   els.forEach(function(el){io.observe(el);});
+  /* Fallback: reveal any .sr still hidden after scroll stops */
+  var fallbackTimer;
+  function fallbackReveal(){
+    clearTimeout(fallbackTimer);
+    fallbackTimer=setTimeout(function(){
+      var hidden=document.querySelectorAll('.sr:not(.visible),.sr-left:not(.visible),.sr-right:not(.visible),.sr-scale:not(.visible)');
+      hidden.forEach(function(el){
+        var rect=el.getBoundingClientRect();
+        var vh=window.innerHeight||document.documentElement.clientHeight;
+        if(rect.top<vh+50 && rect.bottom>-50){el.classList.add('visible');}
+      });
+    },200);
+  }
+  window.addEventListener('scroll',fallbackReveal,{passive:true});
+  window.addEventListener('resize',fallbackReveal,{passive:true});
+  /* Initial check after DOM settles */
+  setTimeout(fallbackReveal,500);
+  setTimeout(fallbackReveal,1500);
 })();
 </script>
 <script>
