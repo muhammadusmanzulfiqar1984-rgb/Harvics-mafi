@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
   <title>Harvics Global Ventures — Mafi Presentation</title>
   <style>
     /* ─── Base Reset & Fonts ─────────────────────────────────────────────────── */
@@ -1820,7 +1821,7 @@
         <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
         <button class="lang-btn" id="btn-ar" onclick="setLang('ar')">ع</button>
       </div>
-      <button id="nav-login-btn" onclick="if(typeof pauseAudio==='function')pauseAudio();else{var a=document.getElementById('bg-audio');if(a)a.pause();}document.getElementById('login-modal').style.display='flex';var v=document.getElementById('login-bg-video');if(v){v.load();v.play().catch(function(){});}" style="background:transparent;border:1px solid var(--gold);color:var(--gold);padding:7px 22px;font-size:.75rem;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;font-family:inherit;transition:background .3s,color .3s;"
+      <button id="nav-login-btn" onclick="openLoginModal()" style="background:transparent;border:1px solid var(--gold);color:var(--gold);padding:7px 22px;font-size:.75rem;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;font-family:inherit;transition:background .3s,color .3s;"
         onmouseenter="this.style.background='var(--gold)';this.style.color='var(--dark)'"
         onmouseleave="this.style.background='transparent';this.style.color='var(--gold)'">Login</button>
     </div>
@@ -1858,9 +1859,8 @@
       <p class="hero-cities">London &nbsp;·&nbsp; Milan &nbsp;·&nbsp; New York</p>
     </div>
     <div class="reveal delay-3" style="margin-top:36px;">
-      <button onclick="if(typeof pauseAudio==='function')pauseAudio();else{var a=document.getElementById('bg-audio');if(a)a.pause();}document.getElementById('login-modal').style.display='flex';var v=document.getElementById('login-bg-video');if(v){v.load();v.play().catch(function(){});}" style="display:inline-block;padding:14px 42px;border:1px solid var(--gold);background:linear-gradient(135deg,rgba(200,169,110,0.15),rgba(205,127,50,0.1));color:var(--gold);font-size:.85rem;font-weight:400;letter-spacing:2.5px;text-transform:uppercase;text-decoration:none;border-radius:2px;cursor:pointer;transition:all .4s ease;font-family:inherit;backdrop-filter:blur(6px);position:relative;overflow:hidden;"
-        onmouseenter="if(typeof pauseAudio==='function')pauseAudio();else{var a=document.getElementById('bg-audio');if(a)a.pause();}this.style.background='var(--gold)';this.style.color='var(--dark)';this.style.boxShadow='0 0 30px rgba(200,169,110,0.3)'"
-        ontouchstart="if(typeof pauseAudio==='function')pauseAudio();else{var a=document.getElementById('bg-audio');if(a)a.pause();}"
+      <button onclick="openLoginModal()" ontouchstart="openLoginModal()" style="display:inline-block;padding:14px 42px;border:1px solid var(--gold);background:linear-gradient(135deg,rgba(200,169,110,0.15),rgba(205,127,50,0.1));color:var(--gold);font-size:.85rem;font-weight:400;letter-spacing:2.5px;text-transform:uppercase;text-decoration:none;border-radius:2px;cursor:pointer;transition:all .4s ease;font-family:inherit;backdrop-filter:blur(6px);position:relative;overflow:hidden;"
+        onmouseenter="this.style.background='var(--gold)';this.style.color='var(--dark)';this.style.boxShadow='0 0 30px rgba(200,169,110,0.3)'"
         onmouseleave="this.style.background='linear-gradient(135deg,rgba(200,169,110,0.15),rgba(205,127,50,0.1))';this.style.color='var(--gold)';this.style.boxShadow='none'">Let's Talk Commercial</button>
     </div>
 
@@ -1946,6 +1946,13 @@
   </div>
 
   <script>
+    function openLoginModal() {
+      if (typeof pauseAudio === 'function') { pauseAudio(); }
+      else { var a = document.getElementById('bg-audio'); if (a) a.pause(); }
+      document.getElementById('login-modal').style.display = 'flex';
+      var v = document.getElementById('login-bg-video');
+      if (v) { v.load(); v.play().catch(function(){}); }
+    }
     function handleLogin(){
       var email=document.getElementById('login-email').value.trim();
       var pass=document.getElementById('login-pass').value;
