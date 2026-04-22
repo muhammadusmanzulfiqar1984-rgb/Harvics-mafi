@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex, nofollow" />
+  <link rel="preload" href="mafi_welcome_arabic.mp3" as="audio" type="audio/mpeg" />
+  <link rel="preload" href="music_light.mp3" as="audio" type="audio/mpeg" />
   <title>Harvics Global Ventures — Mafi Presentation</title>
   <style>
     /* ─── Base Reset & Fonts ─────────────────────────────────────────────────── */
@@ -1687,6 +1689,17 @@
   </div>
   <script>
     var _overlayDismissed = false;
+    var _welcomePrimed = false;
+    function primeWelcomeAudio() {
+      if (_welcomePrimed) return;
+      var welcome = document.getElementById('welcome-audio');
+      if (welcome) {
+        welcome.load();
+        _welcomePrimed = true;
+      }
+    }
+    document.addEventListener('DOMContentLoaded', primeWelcomeAudio, { once: true });
+
     function dismissOverlay() {
       if (_overlayDismissed) return;
       _overlayDismissed = true;
@@ -1700,15 +1713,18 @@
 
       // Welcome speech — ElevenLabs Brian voice
       setTimeout(function() {
-        var welcome = new Audio('mafi_welcome_arabic.mp3');
-        welcome.volume = 0.92;
-        welcome.play().catch(function(){});
+        var welcome = document.getElementById('welcome-audio');
+        if (welcome) {
+          welcome.currentTime = 0;
+          welcome.volume = 0.92;
+          welcome.play().catch(function(){});
+        }
 
         // Music does NOT auto-start — user can manually toggle it
         welcome.onended = function() {
           // Music available via toggle button, but not auto-playing
         };
-      }, 1200);
+      }, 350);
     }
   </script>
 
@@ -1913,7 +1929,7 @@
   <!-- ─── LOGIN MODAL ────────────────────────────────────────────────────── -->
   <div id="login-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.4);justify-content:center;align-items:center;" onclick="if(event.target===this)this.style.display='none'">
     <!-- Background Video -->
-    <video id="login-bg-video" muted loop playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.6;z-index:0;">
+    <video id="login-bg-video" muted loop playsinline preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.6;z-index:0;">
       <source src="login-bg.mp4" type="video/mp4">
     </video>
     <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 70% at 50% 50%,transparent 20%,rgba(0,0,0,0.5) 100%);z-index:1;pointer-events:none;"></div>
@@ -1951,7 +1967,17 @@
       else { var a = document.getElementById('bg-audio'); if (a) a.pause(); }
       document.getElementById('login-modal').style.display = 'flex';
       var v = document.getElementById('login-bg-video');
-      if (v) { v.load(); v.play().catch(function(){}); }
+      if (v && v.readyState < 2 && !v.dataset.preloaded) {
+        v.load();
+        v.dataset.preloaded = '1';
+      }
+      if (v) { v.play().catch(function(){}); }
+    }
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(function() {
+        var preloadVideo = document.getElementById('login-bg-video');
+        if (preloadVideo && preloadVideo.readyState === 0) preloadVideo.load();
+      });
     }
     function handleLogin(){
       var email=document.getElementById('login-email').value.trim();
@@ -2539,7 +2565,11 @@
   </section>
 
   <!-- ─── Audio ─────────────────────────────────────────────────────────────── -->
-  <audio id="bg-audio" loop preload="auto" style="display:none">
+  <audio id="welcome-audio" preload="auto" style="display:none">
+    <source src="mafi_welcome_arabic.mp3" type="audio/mpeg">
+  </audio>
+
+  <audio id="bg-audio" loop preload="metadata" style="display:none">
     <source src="music_light.mp3" type="audio/mpeg">
   </audio>
 
